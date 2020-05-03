@@ -1,52 +1,84 @@
 <template>
-    <div>
-      <header class="site-header jumbotron">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <h1>请发表对Vue的评论</h1>
-            </div>
-          </div>
-        </div>
-      </header>
-      <div class="container">
-        <add :addComment="addComment"></add>
-        <List :comments="comments" :delComment="delComment"></List>
-      </div>
+  <div class="todo-container">
+    <div class="todo-wrap">
+      <todo-header :addTodo="addTodo"></todo-header>
+      <todo-list :todos="todos" :delTodo="delTodo"></todo-list>
+      <todo-footer :todos="todos" :delCompletedTodos="delCompletedTodos" :checkAllTodos="checkAllTodos"></todo-footer>
     </div>
+  </div>
 </template>
 
 <script>
-  import Add from './components/Add'
-  import List from './components/List'
+  import todoHeader from './components/todoHeader'
+  import todoList from './components/todoList'
+  import todoFooter from './components/todoFooter'
   export default {
-    //初始化数据要写在函数中
+    components:{
+      todoHeader,todoList,todoFooter,
+    },
     data(){
       return{
-        comments:[      //数据再哪个组件，更新数据的方法就应该再哪个组件
-          {name:'bzini',content:'vue 还可以呀'},
-          {name:'kobe',content: 'I like basketball'},
-          {name: '小彬',content: '天行健，君子以自强不息'},
-          {name: '小玉',content: '要努力，不放弃'},
-        ],
+        todos:JSON.parse(window.localStorage.getItem('todos_key')||'[]'),     //将数据存入到本地
+          // [
+          // {title:'打球',completed:false},
+          // {title:'学习',completed:false},
+          // {title:'健身',completed:true},
+          // {title:'读书',completed:false},
+          // {title:'听歌',completed:true},
+          // ]
+      }
+    },
+    watch:{
+      todos:{
+        deep:true,                            //深度监视todos
+        handler:function (value) {
+          window.localStorage.setItem('todos_key',JSON.stringify(value))    //将todos改变后的值存入本地
+        }
       }
     },
     methods:{
-      addComment(comment){
-        this.comments.unshift(comment);
-
+      addTodo(todo){
+        this.todos.unshift(todo);
       },
-      delComment(index){
-        this.comments.splice(index,1);
+      delTodo(index){
+        this.todos.splice(index,1);
       },
+      delCompletedTodos(){
+        this.todos=this.todos.filter(todo=>!todo.completed);
+      },
+      checkAllTodos(check){
+        return this.todos.forEach(todo=>todo.completed=check);
+      }
     },
-    components:{
-      Add,List,
-    }
   }
 
 </script>
 
 <style>
+  /*app*/
+  .todo-container {
+    width: 600px;
+    margin: 0 auto;
+  }
+  .todo-container .todo-wrap {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
 
+  /*header*/
+  .todo-header input {
+    width: 560px;
+    height: 28px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 7px;
+  }
+
+  .todo-header input:focus {
+    outline: none;
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  }
 </style>
