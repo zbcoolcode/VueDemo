@@ -7,7 +7,7 @@
 <script>
   export default {
     props:{
-      // addTodo:Function,    //已经用绑定事件监听模式
+      addTodo:Function,
     },
     data(){
       return{
@@ -25,8 +25,7 @@
           return;
         }
         const todo={title,completed};
-        // this.addTodo(todo);
-        this.$emit('addTodo',todo);   // 绑定事件监听的模式
+        this.addTodo(todo);
         this.title='';
       },
     }

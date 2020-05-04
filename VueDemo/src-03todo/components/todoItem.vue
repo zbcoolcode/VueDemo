@@ -9,12 +9,11 @@
 </template>
 
 <script>
-  import PubSub from 'pubsub-js'
   export default {
     props:{
       todo:Object,
       index:Number,
-      // delTodo:Function,    //改未订阅信息
+      delTodo:Function,
     },
     data(){
       return{
@@ -33,9 +32,7 @@
         }
       },
       delTitle(index){
-        // this.delTodo(index);   //改为订阅信息
-        PubSub.publish('delTodo',index);
-
+        this.delTodo(index);
       }
     }
   }

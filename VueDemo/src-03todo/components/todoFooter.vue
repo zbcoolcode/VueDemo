@@ -1,28 +1,22 @@
 <template>
   <div class="todo-footer">
     <label>
-<!--      <input type="checkbox" v-model="isAllCheck"/>-->
-      <slot name="checkAll"></slot>
+      <input type="checkbox" v-model="isAllCheck"/>
     </label>
     <span>
-<!--          <span>已完成{{completedSize}}</span> / 全部数量{{todos.length}}-->
-      <slot name="count"></slot>
-    </span>
-<!--    <button class="btn btn-danger" @click="delCompletedTodos" v-show="completedSize">清除已完成任务</button>-->
-    <slot name="delAll"></slot>
+          <span>已完成{{completedSize}}</span> / 全部数量{{todos.length}}
+        </span>
+    <button class="btn btn-danger" @click="delCompletedTodos" v-show="completedSize">清除已完成任务</button>
   </div>
 </template>
 
 <script>
   export default {
     props:{
-      //  使用了slot
-      // delCompletedTodos:Function,
-      // todos:Array,
-      // checkAllTodos:Function,
+      delCompletedTodos:Function,
+      todos:Array,
+      checkAllTodos:Function,
     },
-    //使用slot，以下再App.vue中定义
-    /*
     computed:{
       completedSize(value){
         return this.todos.reduce((preTotal,todo)=>preTotal+(todo.completed?1:0),0);
@@ -36,7 +30,6 @@
         }
       }
     }
-     */
 
   }
 

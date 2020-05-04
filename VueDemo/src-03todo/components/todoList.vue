@@ -2,7 +2,7 @@
 
 
   <ul class="todo-main">
-    <todoItem v-for="(todo,index) in todos" :key="index" :todo="todo" :index="index"></todoItem>
+    <todoItem v-for="(todo,index) in todos" :key="index" :todo="todo" :index="index" :delTodo="delTodo"></todoItem>
 
   </ul>
 </template>
@@ -13,7 +13,7 @@
     components: {todoItem},
     props:{
       todos:Object,
-      // delTodo:Function,    //改为订阅信息
+      delTodo:Function,
     }
   }
 
