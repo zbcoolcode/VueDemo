@@ -1,5 +1,8 @@
 <template>
-    <div></div>
+    <div>
+      <h2>ABOUT</h2>
+      <input type="text">
+    </div>
 </template>
 
 <script>

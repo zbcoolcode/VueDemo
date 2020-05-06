@@ -20,7 +20,6 @@
     },
     methods:{
       search(){
-        console.log('search');
         const searchName=this.searchName.trim();
         if(searchName) {
           //发布消息

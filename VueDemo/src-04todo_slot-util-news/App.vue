@@ -51,6 +51,7 @@
         }
       }
     },
+
     mounted () {    //异步执行代码
       //给 <todo-header ref="header"></todo-header>绑定监听
       this.$refs.header.$on('addTodo',this.addTodo);    //参数代表事件名和回调函数
@@ -75,7 +76,6 @@
     },
     methods:{
       addTodo(todo){
-        console.log('addTodo');
         this.todos.unshift(todo);
       },
       delTodo(index){
